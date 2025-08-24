@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fruit & Number Analyzer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://picsum.photos/1200/800?random') no-repeat center center fixed;
+      background-size: cover;
+      transition: background 0.3s, color 0.3s;
+    }
+    .container {
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, button, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      background: #1e90ff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #187bcd;
+    }
+    .dark-mode {
+      background: #121212;
+      color: #eee;
+    }
+    .dark-mode .container {
+      background: rgba(34, 34, 34, 0.9);
+      color: #fff;
+    }
+    #output {
+      min-height: 80px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .dark-mode #output {
+      background: #222;
+      border: 1px solid #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Fruit and Number Analyzer</h2>
+    <button id="modeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+    <label>Enter your name:</label>
+    <input type="text" id="name">
+
+    <label>Enter a number:</label>
+    <input type="number" id="number">
+
+    <label>Enter a short sentence:</label>
+    <input type="text" id="sentence">
+
+    <label>Enter 3 favorite fruits :</label>
+    <input type="text" id="fruits">
+
+    <button onclick="analyze()">Analyze</button>
+
+    <div id="output"></div>
+  </div>
+
+  <script>
+    function analyze() {
+      let name = document.getElementById("name").value;
+      let number = parseInt(document.getElementById("number").value);
+      let sentence = document.getElementById("sentence").value;
+      let fruits = document.getElementById("fruits").value.split(",");
+      let output = `<strong>Hello ${name}!</strong><br>`;
+      
+      if (!isNaN(number)) {
+        output += `Your number is <b>${number}</b>. It is ${number % 2 === 0 ? "even" : "odd"}.<br>`;
+      } else {
+        output += `Please enter a valid number.<br>`;
+      }
+      
+      let wordCount = sentence.trim().split(" ").filter(word => word).length;
+      output += `Your sentence has <b>${wordCount}</b> words.<br>`;
+      
+      if (fruits.length >= 3) {
+        output += `Your favorite fruits are: <b>${fruits.map(f => f.trim()).join(", ")}</b>.`;
+      } else {
+        output += `Please enter at least 3 fruits.`;
+      }
+      
+      document.getElementById("output").innerHTML = output;
+    }
+
+    function toggleDarkMode() {
+      let body = document.body;
+      let btn = document.getElementById("modeBtn");
+      body.classList.toggle("dark-mode");
+      if (body.classList.contains("dark-mode")) {
+        btn.innerHTML = "☀️ Light Mode";
+      } else {
+        btn.innerHTML = "🌙 Dark Mode";
+      }
+    }
+  </script>
+</body>
+</html>
